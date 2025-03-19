@@ -12,7 +12,6 @@
           [required]="field.required"
           (keyup)="passwordStrength = checkPasswordStrength(dynamicForm.get(field.name)?.value)"
         />
-        <!-- Eye icon to toggle password visibility -->
         <i
           class="pi"
           [ngClass]="!isPasswordVisible ? 'pi-eye-slash' : 'pi-eye'"
