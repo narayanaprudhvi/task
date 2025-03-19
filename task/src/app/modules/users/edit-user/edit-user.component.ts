@@ -144,7 +144,7 @@ export class EditUserComponent {
             }
             setTimeout(() => {
               this.router.navigate(['/users/users-listing']);
-            }, 1000);
+            }, 1500);
           },
           (error) => {
             this.loader = false;
