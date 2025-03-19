@@ -2,12 +2,30 @@
   <div class="flex flex-row flex-wrap">
     <div class="my-input col-6" *ngFor="let field of formConfig.fields">
       <label class="w-full block" [for]="field.name">{{ field.label }}</label>
+
+      <div *ngIf="field.type === 'password'" class="password-field relative">
+        <input
+          pInputText
+          [type]="isPasswordVisible ? 'text' : 'password'"
+          [formControlName]="field.name"
+          [placeholder]="field.label"
+          [required]="field.required"
+          (keyup)="passwordStrength = checkPasswordStrength(dynamicForm.get(field.name)?.value)"
+        />
+        <!-- Eye icon to toggle password visibility -->
+        <i
+          class="pi"
+          [ngClass]="!isPasswordVisible ? 'pi-eye-slash' : 'pi-eye'"
+          (click)="togglePasswordVisibility()"
+          style="cursor: pointer; position: absolute; right: 10px; top: 13px; color: grey"
+        ></i>
+      </div>
+
       <input
         pInputText
         *ngIf="
           field.type === 'text' ||
-          field.type === 'email' ||
-          field.type === 'password'
+          field.type === 'email'
         "
         [type]="field.type"
         [formControlName]="field.name"

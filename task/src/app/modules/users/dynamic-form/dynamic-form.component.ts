@@ -52,6 +52,12 @@ export class DynamicFormComponent {
     }, 2000);
   }
 
+  isPasswordVisible: boolean = false;
+
+  togglePasswordVisibility() {
+    this.isPasswordVisible = !this.isPasswordVisible;
+  }
+
   createForm(): void {
     const group: any = {};
 
