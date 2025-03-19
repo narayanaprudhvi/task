@@ -1,0 +1,131 @@
+<main class="users-listing-main">
+  <div class="flex align-items-center justify-content-between">
+    <h2>Users Listing</h2>
+
+    <div class="second-part flex align-content-center gap-3">
+      <div class="search-part search-group relative">
+        <input
+          type="text"
+          placeholder="Search"
+          pInputText
+          [(ngModel)]="searchValue"
+          (input)="searchUsers()"
+        />
+        <div
+          class="search-clear-icon absolute pointer"
+          *ngIf="searchValue"
+          (click)="removeSearchValue()"
+        >
+          <i class="pi pi-times" style="font-size: 0.8rem"></i>
+        </div>
+      </div>
+      <div class="primary-button">
+        <button
+          type="button"
+          pButton
+          label="Add User"
+          [routerLink]="'/users/add-user'"
+        ></button>
+      </div>
+    </div>
+  </div>
+  <div class="flex justify-content-center" *ngIf="loader">
+    <div class="loader"></div>
+  </div>
+
+  <div
+    *ngIf="filteredUsers.length === 0 && !loader"
+    class="flex justify-content-center no-results-found"
+  >
+    <p>No users found</p>
+  </div>
+
+  <div class="card my-table" *ngIf="!loader && filteredUsers.length">
+    <p-table
+      [value]="filteredUsers"
+      [paginator]="true"
+      [rows]="5"
+      [tableStyle]="{ 'min-width': '50rem' }"
+      [rowsPerPageOptions]="[5, 10, 20]"
+    >
+      <ng-template pTemplate="header">
+        <tr>
+          <th style="width: 25%" pSortableColumn="id">
+            Id <p-sortIcon field="id" />
+          </th>
+          <th style="width: 25%" pSortableColumn="name.firstname">
+            Full Name <p-sortIcon field="name.firstname" />
+          </th>
+          <th style="width: 25%" pSortableColumn="username">
+            User Name <p-sortIcon field="username" />
+          </th>
+          <th style="width: 25%" pSortableColumn="email">
+            Email <p-sortIcon field="email" />
+          </th>
+          <th style="width: 25%">Password</th>
+          <th style="width: 25%" pSortableColumn="address.city">
+            City <p-sortIcon field="address.city" />
+          </th>
+          <th style="width: 25%" pSortableColumn="address.street">
+            Street <p-sortIcon field="address.street" />
+          </th>
+          <th style="width: 25%" pSortableColumn="address.zipcode">
+            Zipcode <p-sortIcon field="address.zipcode" />
+          </th>
+          <th style="width: 25%" pSortableColumn="phone">
+            Phone <p-sortIcon field="phone" />
+          </th>
+          <th style="width: 25%" class="action_th">Actions</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>
+            <div>
+              {{ user.name.firstname | titlecase }}
+              {{ user.name.lastname | titlecase }}
+            </div>
+          </td>
+
+          <td>
+            <div>{{ user.username }}</div>
+          </td>
+
+          <td>
+            <div>{{ user.email }}</div>
+          </td>
+          <td>{{ user.password | encryptPassword }}</td>
+          <td>
+            <div>{{ user.address.city | titlecase }}</div>
+          </td>
+          <td>
+            <div>{{ user.address.street | titlecase }}</div>
+          </td>
+          <td>{{ user.address.zipcode }}</td>
+          <td>{{ user.phone }}</td>
+          <td>
+            <div class="flex gap-2 action-buttons">
+              <p-button
+                severity="help"
+                icon="pi pi-pencil"
+                (click)="editUser(user.id)"
+                [pTooltip]="'Edit User'"
+                tooltipPosition="bottom"
+              ></p-button>
+              <p-button
+                severity="danger"
+                icon="pi pi-trash"
+                [pTooltip]="'Delete User'"
+                tooltipPosition="bottom"
+                (click)="confirm($event, user.id)"
+              ></p-button>
+            </div>
+          </td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </div>
+</main>
+<p-confirmDialog />
+<p-toast />

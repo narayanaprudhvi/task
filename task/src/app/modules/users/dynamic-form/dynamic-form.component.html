@@ -1,0 +1,72 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <div class="flex flex-row flex-wrap">
+    <div class="my-input col-6" *ngFor="let field of formConfig.fields">
+      <label class="w-full block" [for]="field.name">{{ field.label }}</label>
+      <input
+        pInputText
+        *ngIf="
+          field.type === 'text' ||
+          field.type === 'email' ||
+          field.type === 'password'
+        "
+        [type]="field.type"
+        [formControlName]="field.name"
+        [placeholder]="field.label"
+        [required]="field.required"
+        (keyup)="
+          passwordStrength = checkPasswordStrength(
+            dynamicForm.get(field.name)?.value
+          )
+        "
+      />
+
+      <div
+        *ngIf="dynamicForm.get(field.name)?.value && field.type === 'password'"
+        class="password-strength"
+        [ngClass]="{
+          weak: passwordStrength === 'Weak',
+          medium: passwordStrength === 'Medium',
+          strong: passwordStrength === 'Strong'
+        }"
+      >
+        <small>Password Strength: {{ passwordStrength }}</small>
+      </div>
+
+      <div
+        class="required"
+        *ngIf="
+          dynamicForm.get(field.name)?.invalid &&
+          dynamicForm.get(field.name)?.touched
+        "
+      >
+        <small
+          class="error"
+          *ngIf="dynamicForm.get(field.name)?.errors?.['required']"
+          >This field is required.</small
+        >
+        <small
+          class="error"
+          *ngIf="dynamicForm.get(field.name)?.errors?.['minlength']"
+          >Minimum length is {{ field.minLength }} characters.</small
+        >
+        <small
+          class="error"
+          *ngIf="dynamicForm.get(field.name)?.errors?.['email']"
+          >Please enter a valid email.</small
+        >
+      </div>
+    </div>
+  </div>
+  <div class="primary-button mt-4 ml-2">
+    <!-- label="Add User" -->
+    <!-- icon="pi pi-plus" -->
+    <button pButton pRipple type="submit" [disabled]="dynamicForm.invalid">
+      <ng-container *ngIf="!loader; else loading"> Submit </ng-container>
+      <ng-template #loading>
+        <div class="ms-2">
+          <i class="pi pi-spin pi-spinner"></i>
+        </div>
+      </ng-template>
+    </button>
+  </div>
+</form>

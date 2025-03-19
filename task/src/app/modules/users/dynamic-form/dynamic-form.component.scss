@@ -1,0 +1,22 @@
+.password-strength {
+  margin-top: 10px;
+  font-size: 14px;
+}
+
+.password-strength.weak {
+  small {
+    color: red !important;
+  }
+}
+
+.password-strength.medium {
+  small {
+    color: orange !important;
+  }
+}
+
+.password-strength.strong {
+  small {
+    color: green !important;
+  }
+}

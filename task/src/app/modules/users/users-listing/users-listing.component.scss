@@ -1,0 +1,50 @@
+::ng-deep {
+  .users-listing-main {
+    .my-table .p-datatable-wrapper table tbody tr td {
+      font-size: clamp(0.75rem, 0.7024rem + 0.2381vw, 1rem);
+      &:nth-child(2) > div {
+        font-weight: 500;
+        width: max-content;
+        color: #2d4277;
+        background-color: #9ac6ef;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+      &:nth-child(3) > div {
+        font-weight: 500;
+        width: max-content;
+        color: #b72ae1;
+        background-color: #fdebff;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+      &:nth-child(4) > div {
+        font-weight: 500;
+        width: max-content;
+        color: #2277dd;
+        background-color: #d9f2ff;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+      &:nth-child(6) > div {
+        font-weight: 500;
+        width: max-content;
+        color: #079047;
+        background-color: #e0ffeb;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+      &:nth-child(7) > div {
+        font-weight: 500;
+        width: max-content;
+        color: #ffffff;
+        background-color: #6c63ff;
+        padding: 2px 10px;
+        border-radius: 12px;
+      }
+    }
+    .action_th {
+      min-width: 100px !important;
+    }
+  }
+}
