@@ -51,7 +51,7 @@
       <ng-template pTemplate="header">
         <tr>
           <th style="width: 25%" pSortableColumn="id">
-            Id <p-sortIcon field="id" />
+            ID <p-sortIcon field="id" />
           </th>
           <th style="width: 25%" pSortableColumn="name.firstname">
             Full Name <p-sortIcon field="name.firstname" />
@@ -80,7 +80,9 @@
       </ng-template>
       <ng-template pTemplate="body" let-user>
         <tr>
-          <td>{{ user.id }}</td>
+          <td>
+            <div>{{ user.id }}</div>
+          </td>
           <td>
             <div>
               {{ user.name.firstname | titlecase }}

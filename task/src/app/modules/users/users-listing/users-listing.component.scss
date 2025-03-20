@@ -2,6 +2,16 @@
   .users-listing-main {
     .my-table .p-datatable-wrapper table tbody tr td {
       font-size: clamp(0.75rem, 0.7024rem + 0.2381vw, 1rem);
+      &:nth-child(1) > div {
+        font-weight: 500;
+        width: max-content;
+        color: #2d4277;
+        background-color: #c1dae7;
+        padding: 4px 10px;
+        // color: white !important;
+        padding: 2px 8px;
+        border-radius: 50%;
+      }
       &:nth-child(2) > div {
         font-weight: 500;
         width: max-content;
